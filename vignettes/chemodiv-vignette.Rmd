@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 ^3^ Department of Environment and Biodiversity, University of Salzburg, Salzburg, Austria
 
 ## Introduction
-*chemodiv* is an R package for analysing phytochemical data. It includes
+`chemodiv` is an R package for analysing phytochemical data. It includes
 a number of functions that makes it straightforward to quantify and
 visualize phytochemical diversity and dissimilarity for any type of
 phytochemical samples, such as herbivore defence compounds, volatiles 
@@ -38,15 +38,17 @@ be available in Petrén et al. 2022.
 
 
 ## Setup
-The developmental version of the package can be installed directly from GitHub
-in R using the `install_github()` function from the `devtools` package.
+The current version of the package can be installed from CRAN. Alternatively,
+the developmental version of the package can be installed from GitHub
+using the `install_github()` function from the `devtools` package.
 
 ```{r, eval = FALSE}
-# Install and load devtools package
-install.packages("devtools")
-library("devtools")
+# Install current version
+install.packages("chemodiv")
 
-# Install chemodiv
+# Install developmental version
+install.packages("devtools") # Install devtools if not already installed
+library("devtools")
 install_github("hpetren/chemodiv")
 ```
 
@@ -140,11 +142,19 @@ The function `NPCTable()` classifies compounds with
 is a deep-learning tool that classifies phytochemical compounds into a 
 hierarchical classification of three groups, pathway, superclass and class, 
 largely corresponding to biosynthetic pathways:
-```{r}
+```{r, eval = FALSE}
 alpinaNPC <- NPCTable(compoundData = alpinaCompData)
 
 alpinaNPC[1,] # Classification of the first compound in dataset
 ```
+
+```{r, echo = FALSE}
+data("alpinaNPCTable")
+alpinaNPC <- alpinaNPCTable
+rm(alpinaNPCTable)
+alpinaNPC[1,]
+```
+
 Here, the first compound in the list, *(Z)-beta-Ocimene*, is classified as
 Terpenoids > Monoterpenoids > Acyclic monoterpenoids.
 The classification of the compounds is put into a data frame and can 
@@ -165,12 +175,22 @@ while molecules not having similar substructures/features will have
 a high dissimilarity.
 
 We calculate compound dissimilarities with `type = "PubChemFingerprint"`.
-```{r, message = FALSE}
+```{r, eval = FALSE}
 alpinaCompDis <- compDis(compoundData = alpinaCompData,
                          type = "PubChemFingerprint")
 
 alpinaCompDis$fingerDisMat[1:4, 1:4] # Part of compound dissimilarity matrix
 ```
+
+```{r, echo = FALSE, message = FALSE}
+data("alpinaCompDis")
+alpinaCompDisMat <- alpinaCompDis
+rm(alpinaCompDis)
+alpinaCompDis <- list()
+alpinaCompDis[["fingerDisMat"]] <- alpinaCompDisMat
+alpinaCompDis$fingerDisMat[1:4, 1:4]
+```
+
 The output from the function is a list with one or several compound 
 dissimilarity matrices, depending on which `type` was used as input.
 If multiple `type` are used as input, a matrix with mean values of the other
@@ -310,6 +330,7 @@ molNetPlot(sampleData = alpinaSampData,
            npcTable = alpinaNPC,
            plotNames = TRUE)
 ```
+
 Nodes represent individual compounds. They are coloured by their 
 "pathway" classification by NPClassifier. Node size corresponds to the mean
 proportional concentration of the compounds in the samples. Edge widths 
@@ -338,6 +359,7 @@ chemoDivPlot(compDisMat = alpinaCompDis$fingerDisMat,
              sampDisMat = alpinaSampDis$GenUniFrac,
              groupData = alpinaPopData)
 ```
+
 The output consists of the selected plots. The dendrogram visualizes 
 similarities between compounds in a way complementary to the molecular
 network above, with the three terpenoids having a high dissimilarity to 
@@ -362,7 +384,6 @@ effects of phytochemical variation on plants for various ecological
 interactions and evolutionary processes.
 
 
-
 ### Shortcut function
 The function `quickChemoDiv()` uses many of the above functions to in one 
 simple step calculate and visualize chemodiversity for users wanting to 
@@ -375,6 +396,37 @@ quickChemoDiv(compoundData = alpinaCompData,
               outputType = "plots") # Not run
 ```
 
+
+## Solutions to common questions and issues
+
+* **Getting datasets in order.** See `?chemodiv` for a detailed description
+on how to structure datasets, and compile chemical identifiers for compounds.
+* **Data with unidentified compounds.** See `?chemodiv` for a description on
+how datasets with missing data can be handled, and for alternative ways
+to calculate compound dissimilarities when most or all compounds are
+unidentified.
+* **What method should I use to calculate compound dissimilarities?** See
+`?compDis` for details on how compound dissimilarities are calculated using
+the three different methods. See Petrén et al 2022 for a discussion on
+what method is suitable depending on type of data and research
+question addressed.
+* **Long computation times with `compDis()`.** The `compDis()` function can
+calculate compound dissimilarities using `NPClassifier`, `PubChemFingerprint`
+and `fMCS`. For larger datasets, this will take some time as data is
+downloaded and pairwise compound dissimilarities are calculated. Of the three
+methods, `fMCS` is much more computationally intensive than the
+others, and may take a very long time for datasets with a large number
+of structurally complex molecules. In such cases, it is recommended to
+use `PubChemFingerprint` instead.
+* **What kind of phytochemical diversity should I calculate?** See
+`?calcDiv` for a detailed description on how different measures of
+diversity and evenness are calculated. See Petrén et al 2022 for a more
+in depth comparison and discussion of different diversity indices.
+* **Long computation times with `chemoDivPlot()`.** The `chemoDivPlot()`
+function can be used to conveniently create basic plots of chemodiversity.
+If the function argument `sampDisMat` is included, a Nonmetric Multidimensional 
+Scaling (NMDS) will be performed. This might take some time for larger
+datasets, and excluding this argument will make the plotting much quicker.
 
 
 ## References
@@ -406,4 +458,6 @@ Evolution of floral scent in relation to self-incompatibility and
 capacity for autonomous self-pollination in the perennial herb *Arabis alpina*. 
 Annals of Botany 127:737–747.
 
-Petrén et al. 2022. Unpublished manuscript.
+Petrén H., T.G. Köllner and R.R Junker. 2022. Quantifying chemodiversity 
+considering biochemical and structural properties of compounds with the 
+R package *chemodiv*. bioRxiv doi: 10.1101/2022.06.08.495236.

@@ -6,8 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-*chemodiv* is an R package for analysing the chemodiversity of
-phytochemical data
+`chemodiv` is an R package for analysing chemodiversity of phytochemical
+data
 
 The package can be used to calculate various types of diversities and
 dissimilarities for phytochemical datasets. This includes the use of
@@ -18,15 +18,18 @@ phytochemical diversity.
 
 ## Installation
 
-The developmental version of the package can be installed R using the
-`install_github()` function from the `devtools` package.
+The current version of the package can be installed from CRAN.
+Alternatively, the developmental version of the package can be installed
+from GitHub using the `install_github()` function from the `devtools`
+package.
 
 ``` r
-# Install devtools if not already installed
-install.packages("devtools")
+# Install current version
+install.packages("chemodiv")
 
+# Install developmental version
+install.packages("devtools") # Install devtools if not already installed
 library("devtools")
-
 install_github("hpetren/chemodiv")
 ```
 
@@ -89,3 +92,9 @@ package.
 Function `quickChemoDiv()` uses many of the other functions in the
 package to in one simple step calculate and visualize chemodiversity for
 users wanting to quickly explore their data using standard parameters.
+
+## References
+
+Petrén H., T.G. Köllner and R.R Junker. 2022. Quantifying chemodiversity
+considering biochemical and structural properties of compounds with the
+R package *chemodiv*. bioRxiv doi: 10.1101/2022.06.08.495236.

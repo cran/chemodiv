@@ -5,11 +5,12 @@ knitr::opts_chunk$set(
 )
 
 ## ---- eval = FALSE------------------------------------------------------------
-#  # Install and load devtools package
-#  install.packages("devtools")
-#  library("devtools")
+#  # Install current version
+#  install.packages("chemodiv")
 #  
-#  # Install chemodiv
+#  # Install developmental version
+#  install.packages("devtools") # Install devtools if not already installed
+#  library("devtools")
 #  install_github("hpetren/chemodiv")
 
 ## -----------------------------------------------------------------------------
@@ -34,16 +35,30 @@ data("alpinaPopData")
 
 table(alpinaPopData)
 
-## -----------------------------------------------------------------------------
-alpinaNPC <- NPCTable(compoundData = alpinaCompData)
+## ---- eval = FALSE------------------------------------------------------------
+#  alpinaNPC <- NPCTable(compoundData = alpinaCompData)
+#  
+#  alpinaNPC[1,] # Classification of the first compound in dataset
 
-alpinaNPC[1,] # Classification of the first compound in dataset
+## ---- echo = FALSE------------------------------------------------------------
+data("alpinaNPCTable")
+alpinaNPC <- alpinaNPCTable
+rm(alpinaNPCTable)
+alpinaNPC[1,]
 
-## ---- message = FALSE---------------------------------------------------------
-alpinaCompDis <- compDis(compoundData = alpinaCompData,
-                         type = "PubChemFingerprint")
+## ---- eval = FALSE------------------------------------------------------------
+#  alpinaCompDis <- compDis(compoundData = alpinaCompData,
+#                           type = "PubChemFingerprint")
+#  
+#  alpinaCompDis$fingerDisMat[1:4, 1:4] # Part of compound dissimilarity matrix
 
-alpinaCompDis$fingerDisMat[1:4, 1:4] # Part of compound dissimilarity matrix
+## ---- echo = FALSE, message = FALSE-------------------------------------------
+data("alpinaCompDis")
+alpinaCompDisMat <- alpinaCompDis
+rm(alpinaCompDis)
+alpinaCompDis <- list()
+alpinaCompDis[["fingerDisMat"]] <- alpinaCompDisMat
+alpinaCompDis$fingerDisMat[1:4, 1:4]
 
 ## -----------------------------------------------------------------------------
 alpinaDiv <- calcDiv(sampleData = alpinaSampData, 
