@@ -1,6 +1,6 @@
 Package: chemodiv
 Title: Analysing Chemodiversity of Phytochemical Data
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(
     person("Hampus", "Petrén", email = "hampus.petren@gmail.com",
     role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6490-4517")),
@@ -29,10 +29,10 @@ VignetteBuilder: knitr
 URL: https://github.com/hpetren/chemodiv
 BugReports: https://github.com/hpetren/chemodiv/issues
 NeedsCompilation: no
-Packaged: 2023-01-12 09:01:37 UTC; Hampus
+Packaged: 2023-08-17 12:51:39 UTC; Hampus
 Author: Hampus Petrén [aut, cre] (<https://orcid.org/0000-0001-6490-4517>),
   Tobias G. Köllner [aut] (<https://orcid.org/0000-0002-7037-904X>),
   Robert R. Junker [aut] (<https://orcid.org/0000-0002-7919-9678>)
 Maintainer: Hampus Petrén <hampus.petren@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-01-12 09:30:06 UTC
+Date/Publication: 2023-08-17 17:52:33 UTC

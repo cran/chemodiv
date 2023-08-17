@@ -1,21 +1,18 @@
-citHeader("To cite chemodiv in publications use:")
-
-citEntry(
-  entry    = "Article",
+bibentry(
+  bibtype    = "Article",
   title    = "Quantifying chemodiversity considering biochemical and structural properties of compounds with the R package chemodiv",
-  author   = personList(as.person("Hampus Petrén"),
-                   as.person("Tobias G. Köllner"),
-                   as.person("Robert R. Junker")),
+  author   = c("Hampus Petrén", "Tobias G. Köllner", "Robert R. Junker"),
   journal  = "New Phytologist",
   year     = "2023",
-  volume   = "",
-  number   = "",
-  pages    = "",
-  url      = "https://doi.org/10.1111/nph.18685",
+  volume   = "237",
+  number   = "6",
+  pages    = "2478-2492",
+
+  header = "To cite chemodiv in publications use:",
 
   textVersion = paste("Hampus Petrén, Tobias G. Köllner, Robert R. Junker (2023).",
         "Quantifying chemodiversity considering biochemical and structural properties of compounds with the R package chemodiv.",
-        "New Phytologist.",
-        "https://doi.org/10.1111/nph.18685"
+        "New Phytologist",
+        "237: 2478-2492."
         )
 )

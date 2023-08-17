@@ -2,6 +2,9 @@
 #'
 #' Function to conveniently create basic plots of the different types of
 #' chemodiversity measurements calculated by functions in the package.
+#' This function exists to provide an easy way to make basic chemodiversity
+#' plots. As functions in the package output data in standard formats,
+#' customized plots are easily created with \code{\link[ggplot2]{ggplot2}}.
 #'
 #' The function can create four different types of plots,
 #' (using \code{\link[ggplot2]{ggplot2}}) depending on which input data
@@ -176,12 +179,12 @@ chemoDivPlot <- function(compDisMat = NULL,
                                       y = .data$Diversity,
                                       group = .data$Individual,
                                       color = .data$Group),
-                         size = 0.5, alpha = 0.15) +
+                         linewidth = 0.5, alpha = 0.15) +
       ggplot2::geom_line(data = divHillLong,
                          ggplot2::aes(x = .data$q,
                                       y = .data$Diversity,
                                       color = .data$Group),
-                         size = 2) +
+                         linewidth = 2) +
       ggplot2::xlab("Diversity order (q)") +
       ggplot2::ylab(divProfData$type) +
       ggplot2::theme(text = ggplot2::element_text(size = 15))
